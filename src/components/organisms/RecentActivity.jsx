@@ -1,10 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import Card from "@/components/atoms/Card";
 import Badge from "@/components/atoms/Badge";
 import ApperIcon from "@/components/ApperIcon";
-
 const RecentActivity = () => {
+  const navigate = useNavigate();
+  
   const activities = [
     {
       id: 1,
@@ -13,7 +15,8 @@ const RecentActivity = () => {
       client: "TechCorp Inc",
       time: "2 hours ago",
       icon: "CheckCircle2",
-      iconColor: "text-green-500"
+      iconColor: "text-green-500",
+      entityId: 1
     },
     {
       id: 2,
@@ -22,7 +25,8 @@ const RecentActivity = () => {
       client: "StartupXYZ",
       time: "4 hours ago",
       icon: "Plus",
-      iconColor: "text-blue-500"
+      iconColor: "text-blue-500",
+      entityId: 2
     },
     {
       id: 3,
@@ -31,7 +35,8 @@ const RecentActivity = () => {
       client: "Digital Agency",
       time: "6 hours ago",
       icon: "FileText",
-      iconColor: "text-purple-500"
+      iconColor: "text-purple-500",
+      entityId: 1247
     },
     {
       id: 4,
@@ -40,7 +45,8 @@ const RecentActivity = () => {
       client: "Fashion Brand",
       time: "1 day ago",
       icon: "UserPlus",
-      iconColor: "text-emerald-500"
+      iconColor: "text-emerald-500",
+      entityId: 3
     },
     {
       id: 5,
@@ -49,7 +55,8 @@ const RecentActivity = () => {
       client: "TechCorp Inc",
       time: "2 days ago",
       icon: "DollarSign",
-      iconColor: "text-green-600"
+      iconColor: "text-green-600",
+      entityId: 1
     }
   ];
 
@@ -64,6 +71,34 @@ const RecentActivity = () => {
     return badges[type] || { variant: "default", label: "Activity" };
   };
 
+  const handleActivityClick = (activity) => {
+    switch (activity.type) {
+      case "project":
+        navigate(`/projects/${activity.entityId}`);
+        break;
+      case "task":
+        navigate("/tasks");
+        break;
+      case "invoice":
+        navigate("/invoices");
+        break;
+      case "client":
+        navigate(`/clients/${activity.entityId}`);
+        break;
+      case "payment":
+        navigate("/invoices");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleKeyPress = (event, activity) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleActivityClick(activity);
+    }
+  };
   return (
     <Card className="h-full">
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
@@ -78,12 +113,17 @@ const RecentActivity = () => {
       <div className="p-6">
         <div className="space-y-4">
           {activities.map((activity, index) => (
-            <motion.div
+<motion.div
               key={activity.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="flex items-start gap-4 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
+              className="flex items-start gap-4 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 cursor-pointer"
+              onClick={() => handleActivityClick(activity)}
+              onKeyPress={(e) => handleKeyPress(e, activity)}
+              role="button"
+              tabIndex={0}
+              aria-label={`View details for ${activity.title}`}
             >
               <div className={`flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center ${activity.iconColor}`}>
                 <ApperIcon name={activity.icon} size={16} />
