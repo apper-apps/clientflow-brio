@@ -76,14 +76,14 @@ const [formData, setFormData] = useState({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!validateForm()) {
       return;
     }
     
-setLoading(true);
+    setLoading(true);
     
     try {
       if (mode === "edit") {
@@ -91,7 +91,19 @@ setLoading(true);
         toast.success("Client updated successfully!");
         onClientUpdated?.(updatedClient);
       } else {
-        const newClient = await createClient(formData);
+        // Map form data to correct field names for API
+        const clientData = {
+          Name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          notes: formData.notes,
+          status: formData.status,
+          Tags: '',
+          Owner: null,
+          createdAt: new Date().toISOString()
+        };
+        
+        const newClient = await createClient(clientData);
         toast.success("Client created successfully!");
         onClientCreated?.(newClient);
       }

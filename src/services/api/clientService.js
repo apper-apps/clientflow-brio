@@ -81,11 +81,10 @@ export const createClient = async (clientData) => {
       apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
       apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
     });
-    
-    // Only include Updateable fields
+// Only include Updateable fields
     const params = {
       records: [{
-        Name: clientData.Name || clientData.name || '',
+        Name: clientData.Name || '',
         Tags: clientData.Tags || '',
         Owner: clientData.Owner || null,
         email: clientData.email || '',
