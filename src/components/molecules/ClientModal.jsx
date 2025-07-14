@@ -91,7 +91,7 @@ const handleSubmit = async (e) => {
         toast.success("Client updated successfully!");
         onClientUpdated?.(updatedClient);
       } else {
-        // Map form data to correct field names for API
+// Map form data to correct field names for API
         const clientData = {
           Name: formData.name,
           email: formData.email,
