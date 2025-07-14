@@ -35,10 +35,11 @@ const Clients = () => {
     }
 };
 
-const handleClientCreated = (newClient) => {
+  const handleClientCreated = (newClient) => {
     setClients(prev => [...prev, newClient]);
     setShowModal(false);
   };
+
   const handleClientClick = (clientId) => {
     navigate(`/clients/${clientId}`);
   };
