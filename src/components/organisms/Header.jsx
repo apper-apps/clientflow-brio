@@ -1,17 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "@/components/atoms/Button";
 import ThemeToggle from "@/components/molecules/ThemeToggle";
 import ApperIcon from "@/components/ApperIcon";
 import { useSidebar } from "@/hooks/useSidebar";
-import ProjectModal from "@/components/molecules/ProjectModal";
+
 const Header = () => {
   const { toggleSidebar } = useSidebar();
-  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
-
-  const handleProjectSubmit = async (projectData) => {
-    // Modal handles the submission and toast notifications
-    setIsProjectModalOpen(false);
-  };
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 lg:px-6 py-4">
       <div className="flex items-center justify-between">
@@ -42,15 +36,6 @@ const Header = () => {
           
           <ThemeToggle />
           
-          <Button 
-            variant="primary" 
-            size="sm" 
-            className="hidden sm:flex"
-            onClick={() => setIsProjectModalOpen(true)}
-          >
-            <ApperIcon name="Plus" size={16} className="mr-2" />
-            New Project
-          </Button>
           
           <Button 
             variant="ghost" 
@@ -67,13 +52,7 @@ const Header = () => {
             Logout
           </Button>
         </div>
-      </div>
-      
-      <ProjectModal
-        isOpen={isProjectModalOpen}
-        onClose={() => setIsProjectModalOpen(false)}
-        onSubmit={handleProjectSubmit}
-      />
+</div>
     </header>
   );
 };
