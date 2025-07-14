@@ -85,16 +85,16 @@ const handleSubmit = async (e) => {
     
     setLoading(true);
     
-    try {
+try {
       if (mode === "edit") {
         const updatedClient = await updateClient(client.Id, formData);
-        toast.success("Client updated successfully!");
         onClientUpdated?.(updatedClient);
-} else {
+      } else {
         // Create client with form data
         const newClient = await createClient(formData);
-        toast.success("Client created successfully!");
-        onClientCreated?.(newClient);
+        if (newClient) {
+          onClientCreated?.(newClient);
+        }
       }
       
       // Reset form
@@ -108,7 +108,8 @@ const handleSubmit = async (e) => {
       setErrors({});
       
       onClose();
-    } catch (error) {
+} catch (error) {
+      console.error(`Error ${mode === "edit" ? "updating" : "creating"} client:`, error);
       toast.error(mode === "edit" ? "Failed to update client. Please try again." : "Failed to create client. Please try again.");
     } finally {
       setLoading(false);

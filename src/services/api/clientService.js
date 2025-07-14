@@ -116,9 +116,8 @@ export const createClient = async (clientData) => {
         return null;
       }
       
-      const successfulRecord = response.results.find(result => result.success);
+const successfulRecord = response.results.find(result => result.success);
       if (successfulRecord) {
-        toast.success("Client created successfully");
         return successfulRecord.data;
       }
     }

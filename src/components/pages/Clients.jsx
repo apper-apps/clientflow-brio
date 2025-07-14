@@ -35,9 +35,10 @@ const Clients = () => {
     }
 };
 
-  const handleClientCreated = (newClient) => {
-    setClients(prev => [...prev, newClient]);
+const handleClientCreated = async (newClient) => {
     setShowModal(false);
+    // Reload the complete client list to ensure data consistency
+    await loadClients();
   };
 
   const handleClientClick = (clientId) => {
