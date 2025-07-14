@@ -241,7 +241,7 @@ const Clients = () => {
             onAction={() => setSearchTerm("")}
           />
 </motion.div>
-      )}
+)}
 
       {/* Client Modal */}
       <ClientModal
