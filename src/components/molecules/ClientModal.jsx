@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Modal from "@/components/atoms/Modal";
+import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
-import ApperIcon from "@/components/ApperIcon";
+import Modal from "@/components/atoms/Modal";
 import { createClient, updateClient } from "@/services/api/clientService";
 
 const ClientModal = ({ isOpen, onClose, onClientCreated, onClientUpdated, client, mode = "create" }) => {
@@ -90,20 +90,9 @@ const handleSubmit = async (e) => {
         const updatedClient = await updateClient(client.Id, formData);
         toast.success("Client updated successfully!");
         onClientUpdated?.(updatedClient);
-      } else {
-// Map form data to correct field names for API
-        const clientData = {
-          Name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          notes: formData.notes,
-          status: formData.status,
-          Tags: '',
-          Owner: null,
-          createdAt: new Date().toISOString()
-        };
-        
-        const newClient = await createClient(clientData);
+} else {
+        // Create client with form data
+        const newClient = await createClient(formData);
         toast.success("Client created successfully!");
         onClientCreated?.(newClient);
       }
