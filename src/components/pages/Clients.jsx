@@ -20,6 +20,7 @@ const Clients = () => {
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
+  
   const loadClients = async () => {
     try {
       setLoading(true);
@@ -34,10 +35,10 @@ const Clients = () => {
     }
 };
 
-  const handleClientCreated = (newClient) => {
+const handleClientCreated = (newClient) => {
     setClients(prev => [...prev, newClient]);
-};
-
+    setShowModal(false);
+  };
   const handleClientClick = (clientId) => {
     navigate(`/clients/${clientId}`);
   };
