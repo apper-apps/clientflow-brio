@@ -84,7 +84,7 @@ export const createClient = async (clientData) => {
 // Only include Updateable fields
     const params = {
       records: [{
-        Name: clientData.Name || '',
+        Name: clientData.name || clientData.Name || '',
         Tags: clientData.Tags || '',
         Owner: clientData.Owner || null,
         email: clientData.email || '',
